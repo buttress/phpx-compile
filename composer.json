@@ -1,5 +1,5 @@
 {
-    "name": "buttress/phpx-compiler",
+    "name": "buttress/phpx-compile",
     "description": "Compiler for PHPX",
     "autoload": {
         "psr-4": {
