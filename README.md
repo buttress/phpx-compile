@@ -1,5 +1,5 @@
 <p align="center">
-    <sup><code lang="html">&lt;PHPX compile="true"/&gt;</code></sup><br>
+    <sub><sup><code lang="html">&lt;PHPX compile="true"/&gt;</code></sup></sub><br>
     An experimental compiler for PHPX<br><br>
 </p>
 
