@@ -15,6 +15,7 @@ Compiled PHPX files are still plain PHP and can be swapped out for existing temp
 
 ```php
 <?php
+
 $x = new Buttress\PHPX();
 $github = 'https://github.com/buttress/phpx';
 
