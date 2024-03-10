@@ -1,0 +1,40 @@
+{
+    "name": "buttress/phpx-compiler",
+    "description": "Compiler for PHPX",
+    "autoload": {
+        "psr-4": {
+            "Buttress\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Korvin Szanto",
+            "email": "me@kor.vin"
+        }
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "require": {
+        "PHP": ">=8",
+        "nikic/php-parser": "^5.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2",
+        "laravel/pint": "^1.14",
+        "buttress/phpx": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "lint": "pint --preset per",
+        "test:unit": "pest",
+        "test:lint": "@lint --test",
+        "test": [
+            "@test:unit",
+            "@test:lint"
+        ]
+    }
+}
