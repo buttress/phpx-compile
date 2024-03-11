@@ -60,6 +60,10 @@ $input = file_get_contents('/my_file_that_uses_phpx');
 $php = $compiler->compile($input, $phpxVariable);
 ```
 
+## Related Projects
+- [PHPX](https://github.com/buttress/phpx) A fluent DOMDocument wrapper that makes it easy to write safe valid HTML in plain PHP.
+- [PHPX Templates](https://github.com/buttress/phpx-templates) An experimental template engine built around PHPX and PHPX Compile.
+
 ## Contributing
 
 Contributions to PHPX Compile are always welcome! Feel free to fork the repository and submit a pull request.
