@@ -1,5 +1,5 @@
 <?php
 
-namespace Buttress;
+namespace Phpx\Compile;
 
 class CompilerError extends \RuntimeException {}

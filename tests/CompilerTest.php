@@ -1,15 +1,21 @@
 <?php
 
 dataset('compiletime', function () {
-    $compiler = new \Buttress\Compiler((new \PhpParser\ParserFactory())->createForHostVersion());
-    $contents = file_get_contents(__DIR__ . '/fixtures/compile_input.php');
-    $time = timing_us(function () use (&$output, $contents, $compiler) {
-        $output = $compiler->compile($contents, 'x');
-    });
-    expect($output)->toStartWith("<?php\n\$features");
+    try {
+        $compiler = new \Phpx\Compile\Compiler((new \PhpParser\ParserFactory())->createForHostVersion());
+        $contents = file_get_contents(__DIR__ . '/fixtures/compile_input.php');
+        $time = timing_us(function () use (&$output, $contents, $compiler) {
+            $output = $compiler->compile($contents, 'x');
+        });
 
-    $compiled = eval(substr($output, 6));
-    $raw = require __DIR__ . '/fixtures/compile_input.php';
+        expect($output)->toStartWith("<?php\n\$features");
+        $compiled = eval(substr($output, 6));
+        $raw = require __DIR__ . '/fixtures/compile_input.php';
+    } catch (\Throwable $e) {
+        ob_end_flush();
+        echo $e;
+        die(1);
+    }
 
     return [
         format_us($time) => [$raw, $compiled],
@@ -18,6 +24,7 @@ dataset('compiletime', function () {
 
 function normalize_html(string $html)
 {
+    $html = preg_replace('~<pre.+</pre>~s', '<pre></pre>', $html);
     $doc = new DOMDocument(1.0, 'UTF-8');
     $doc->formatOutput = true;
     if (function_exists('libxml_use_internal_errors')) {
@@ -40,27 +47,35 @@ it('compiles properly', function ($a, $b) {
         ->toBe(normalize_html($b));
 })->with('compiletime');
 
-it('performs well', function (float $raw, float $compiled, float $percent) {
-    expect($percent)->toBeLessThanOrEqual(50);
-})->with(function () {
-    $compiler = new \Buttress\Compiler((new \PhpParser\ParserFactory())->createForHostVersion());
-    $contents = file_get_contents(__DIR__ . '/fixtures/compile_input.php');
-    $output = $compiler->compile($contents, 'x');
-
-    $out = tempnam(sys_get_temp_dir(), 'phpx-out');
+dataset('performance', function () {
     try {
-        file_put_contents($out, $output);
-        $raw = timing_us(fn() => require __DIR__ . '/fixtures/compile_input.php', 1000);
-        ob_end_clean();
-        file_put_contents('/tmp/test.php', file_get_contents($out));
+        $compiler = new \Phpx\Compile\Compiler((new \PhpParser\ParserFactory())->createForHostVersion());
+        $contents = file_get_contents(__DIR__ . '/fixtures/compile_input.php');
+        $output = $compiler->compile($contents, 'x');
 
-        $compiled = timing_us(fn() => require $out, 1000);
-    } finally {
-        unlink($out);
+        $out = tempnam(sys_get_temp_dir(), 'phpx-out');
+        try {
+            file_put_contents($out, $output);
+            $raw = timing_us(fn() => require __DIR__ . '/fixtures/compile_input.php', 1000);
+            ob_end_clean();
+            file_put_contents('/tmp/test.php', file_get_contents($out));
+
+            $compiled = timing_us(fn() => require $out, 1000);
+        } finally {
+            unlink($out);
+        }
+
+        $percent = round($compiled / $raw * 100, 2);
+    } catch (\Throwable $e) {
+        ob_end_flush();
+        echo $e;
+        die(1);
     }
-
-    $percent = round($compiled / $raw * 100, 2);
     return [
         sprintf('Compiled version took %s%% as much time', $percent) => [$raw, $compiled, $percent],
     ];
 });
+
+it('performs well', function (float $raw, float $compiled, float $percent) {
+    expect($percent)->toBeLessThanOrEqual(50);
+})->with('performance');

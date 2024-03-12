@@ -3,7 +3,7 @@
 // Test the readme snippets
 
 test('readme example', function () {
-    $compiler = new \Buttress\Compiler((new \PhpParser\ParserFactory())->createForVersion(\PhpParser\PhpVersion::fromComponents(8, 3)));
+    $compiler = new \Phpx\Compile\Compiler((new \PhpParser\ParserFactory())->createForVersion(\PhpParser\PhpVersion::fromComponents(8, 3)));
 
 
     expect($compiler->compile(file_get_contents(__DIR__ . '/fixtures/readme_1.php'), 'x'))

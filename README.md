@@ -1,8 +1,10 @@
 <p align="center">
-    <sub><sup><code lang="html">&lt;PHPX compile="true"/&gt;</code></sup></sub><br>
-    An experimental compiler for PHPX<br><br>
+    <sub><sup><code lang="html">&lt;PHPX compile="true"/&gt;</code></sup></sub>
 </p>
-
+<p align="center">
+    An experimental compiler for PHPX
+</p>
+<hr>
 **PHPX Compile** compiles [PHPX](https://github.com/buttress/phpx) into more optimized PHP significantly reducing function
 calls when rendering PHPX files. With the example used in tests we see about a 6x speed improvement over plain PHPX
 

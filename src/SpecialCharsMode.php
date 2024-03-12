@@ -1,6 +1,6 @@
 <?php
 
-namespace Buttress;
+namespace Phpx\Compile;
 
 enum SpecialCharsMode: int
 {

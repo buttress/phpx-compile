@@ -3,7 +3,7 @@
     "description": "Compiler for PHPX",
     "autoload": {
         "psr-4": {
-            "Buttress\\": "src/"
+            "Phpx\\Compile\\": "src/"
         }
     },
     "authors": [
@@ -21,7 +21,7 @@
     "require-dev": {
         "pestphp/pest": "^2",
         "laravel/pint": "^1.14",
-        "buttress/phpx": "*"
+        "buttress/phpx": "^0.2"
     },
     "config": {
         "allow-plugins": {
