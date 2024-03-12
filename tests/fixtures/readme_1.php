@@ -1,6 +1,6 @@
 <?php
 
-$x = new Buttress\PHPX();
+$x = new Buttress\Phpx\Phpx();
 $github = 'https://github.com/buttress/phpx';
 
 return $x->render(

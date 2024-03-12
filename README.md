@@ -19,7 +19,7 @@ Compiled PHPX files are still plain PHP and can be swapped out for existing temp
 ```php
 <?php
 
-$x = new Buttress\PHPX();
+$x = new Buttress\Phpx\Phpx();
 $github = 'https://github.com/buttress/phpx';
 
 return $x->render(
@@ -37,7 +37,7 @@ becomes
 
 ```php
 <?php
-$x = new Buttress\PHPX();
+$x = new Buttress\Phpx\Phpx();
 $github = 'https://github.com/buttress/phpx';
 return '<div class="content"><h1 id="title">Hello World!</h1>'.'<p>Brought to you by '.'<a href="'.htmlspecialchars($github, 50).'">PHPX</a>'.'</p>'.'</div>';
 ```
