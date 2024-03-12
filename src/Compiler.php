@@ -98,9 +98,6 @@ class Compiler extends NodeVisitorAbstract
             }
             return $this->concatAll($nodes);
         }
-        if ($node->name->name === 'out') {
-            return new Stmt\Echo_([$this->concatAll(array_map(fn($a) => $a->value, $node->args))], ['phpx' => true]);
-        }
         if ($node->name->name === 'raw') {
             $arg = $node->args[0]->value;
             $arg->setAttribute('phpx', true);
